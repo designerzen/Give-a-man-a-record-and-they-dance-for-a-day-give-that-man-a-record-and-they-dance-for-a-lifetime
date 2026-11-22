@@ -1,0 +1,5 @@
+pmOnFail: warn
+
+# sass' optional file watcher ships prebuilt binaries
+allowBuilds:
+  '@parcel/watcher': false

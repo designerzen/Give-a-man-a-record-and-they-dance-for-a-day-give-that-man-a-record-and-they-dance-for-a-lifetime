@@ -1,0 +1,26 @@
+{
+	"name": "photosynth-talks",
+	"private": true,
+	"version": "1.0.0",
+	"description": "Give a man a record and they dance for a day, give that man a synthesizer and they dance for a lifetime. Slides for PhotoSYNTH talks.",
+	"author": "designerzen <github@designerzen.com>",
+	"license": "AGPL-3.0-or-later",
+	"packageManager": "pnpm@12.21.0",
+	"scripts": {
+		"start": "vite",
+		"build": "vite build",
+		"clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+		"deploy:cloudflare": "pnpm run build && wrangler pages deploy dist --project-name photosynth-talks",
+		"preview": "vite preview --port 909"
+	},
+	"dependencies": {
+		"qrcode-svg": "^1.1.0",
+		"reveal.js": "^6.0.2"
+	},
+	"devDependencies": {
+		"pug": "^3.0.4",
+		"sass": "^1.108.2",
+		"vite": "^8.3.8"
+	},
+	"type": "module"
+}

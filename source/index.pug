@@ -1,0 +1,24 @@
+extends _base.pug
+
+block headline
+	| PhotoSYNTH Talks
+
+block tagline
+	| Give a man a record and they dance for a day, give that man a synthesizer and they dance for a lifetime
+
+block main
+	main#app
+		nav(aria-label="Talks")
+			ul
+				li: a(href="./talk.html") PhotoSYNTH talk
+				li: a(href="./talk-rix.html") Talk @ RIX
+				li: a(href="./iop.html") IOP talk
+		p
+			| Slides for talks about 
+			a(href="https://interface.place") PhotoSYNTH
+			|  by designerzen.
+
+block styles
+	style.
+		#app{ max-width: 60ch; margin: 2rem auto; padding: 0 1rem; }
+		#intro{ max-width: 60ch; margin: 2rem auto 0; padding: 0 1rem; }

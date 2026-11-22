@@ -1,0 +1,9 @@
+node_modules
+dist
+.parcel-cache
+*.log
+
+# raw talk footage is too large for git / Cloudflare Pages (>25MB) and is not used by any slides
+
+# generated from source/*.pug by vite.config.js
+/*.html

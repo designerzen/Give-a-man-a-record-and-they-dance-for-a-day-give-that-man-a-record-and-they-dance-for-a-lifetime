@@ -1,0 +1,47 @@
+name: Deploy to Cloudflare Pages
+
+# Requires the repository secrets CLOUDFLARE_API_TOKEN (Pages:Edit) and CLOUDFLARE_ACCOUNT_ID.
+# Skipped until they are set.
+
+on:
+    push:
+        branches: [ main ]
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    deployments: write
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        env:
+            HAS_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
+        steps:
+            - uses: actions/checkout@v6
+              if: env.HAS_TOKEN == 'true'
+
+            - uses: pnpm/action-setup@v6
+              if: env.HAS_TOKEN == 'true'
+              with:
+                run_install: false
+
+            - uses: actions/setup-node@v6
+              if: env.HAS_TOKEN == 'true'
+              with:
+                node-version-file: ".nvmrc"
+                cache: pnpm
+
+            - run: pnpm install --frozen-lockfile
+              if: env.HAS_TOKEN == 'true'
+
+            - run: pnpm run build
+              if: env.HAS_TOKEN == 'true'
+
+            - name: Publish to Cloudflare Pages
+              if: env.HAS_TOKEN == 'true'
+              uses: cloudflare/wrangler-action@v3
+              with:
+                apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                command: pages deploy dist --project-name=photosynth-talks --branch=${{ github.ref_name }}
