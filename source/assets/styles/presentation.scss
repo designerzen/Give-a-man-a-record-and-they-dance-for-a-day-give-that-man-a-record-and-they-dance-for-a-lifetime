@@ -460,3 +460,50 @@ html.reveal-print .reveal {
 		transform: rotate(-3deg);
 	}
 }
+
+// Small screens: long r-fit-text lines can't fit on one line, so let them wrap,
+// and keep media inside the slide
+@media (max-width: 1100px), (max-height: 500px) {
+	.reveal .slides {
+		.r-fit-text {
+			white-space: normal !important;
+			font-size: 1.4em !important;
+			display: block !important;
+		}
+		img, video {
+			max-width: 100%;
+			height: auto;
+		}
+	}
+}
+
+// Wider screens use disableLayout, so slides aren't scaled: size text to the screen height instead
+@media (min-width: 701px) and (min-height: 501px) {
+	:root:root {
+		--r-main-font-size: min(42px, 4.2vmin);
+	}
+}
+
+.reveal .slides {
+	// images shrink to the space left by headings, text and captions
+	section {
+		max-height: 100vh;
+	}
+	section > :is(figure, img),
+	figure:not(.wallpaper, .grid) > img {
+		min-height: 0;
+		flex-shrink: 1;
+	}
+	// long tables shrink with the screen height
+	table {
+		font-size: min(0.8rem, 1.7vh);
+	}
+}
+
+// a long table scrolls inside its slide rather than running off the screen
+.reveal .slides figure:has(table) {
+	max-height: calc(100vh - 4 * var(--pad));
+	max-width: 100%;
+	overflow: auto;
+	justify-content: flex-start;
+}

@@ -317,7 +317,14 @@ block scripts
 	script(type="module").
 		import Reveal from 'reveal.js'
 
+		const SMALL_SCREEN = matchMedia('(max-width: 700px), (max-height: 500px)').matches
+
 		let deck = new Reveal({
+			// allow reload to point
+			hash: true,
+			// phones use reveal's own scaling and scroll view, which disableLayout switches off
+			disableLayout: !SMALL_SCREEN,
+			display: 'flex',
 			// Activate the scroll view
 			//- view: 'scroll',
 			// Force the scrollbar to remain visible
@@ -328,7 +335,7 @@ block scripts
 
 block styles
 	link(rel="stylesheet", href="/node_modules/reveal.js/dist/reveal.css", type="text/css")
-	link(rel="stylesheet", href="/node_modules/reveal.js/dist/theme/black.css", type="text/css")
+	link(rel="stylesheet", href="/node_modules/reveal.js/dist/theme/white.css", type="text/css")
 	//- link(rel="stylesheet", href="/node_modules/reveal.js/dist/theme/sky.css", type="text/css")
 	style.
 		:root {
